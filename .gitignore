@@ -1,0 +1,5 @@
+.Python
+.installed.cfg
+*.egg
+
+__pycache__/
