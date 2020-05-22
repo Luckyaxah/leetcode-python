@@ -5,37 +5,29 @@
 #         self.next = None
 from 链表类 import ListNode
 class Solution:
-    def insertionSortList1(self, head: ListNode) -> ListNode:
-        p = head
+    def insertionSortList(self, head: ListNode) -> ListNode:
+        p1 = head
         length = 0
-        # target = head
-        while p:
-            p = p.next
-            length+= 1
-        print(length)
-
-        for i in range(1, length):
-            p1 = head
-            t = 0
-            while t<i:
-                p1 = p1.next
-                t += 1
-            for j in range(i-1, -1, -1):
+        while p1:
+            target = p1
+            for j in range(length-1, -1, -1):
                 p2 = head
                 t = 0
                 while t<j:
                     p2 = p2.next
                     t += 1
-                if p2.val>p1.val:
+                if p2.val>target.val:
                     temp = p2.val
-                    p2.val = p1.val
-                    p1.val = temp
-                    p1 = p2
+                    p2.val = target.val
+                    target.val = temp
+                    target = p2
                 else:
                     break
+            p1 = p1.next
+            length+= 1
         return head
 
-    def insertionSortList(self, head: ListNode) -> ListNode:
+    def insertionSortList1(self, head: ListNode) -> ListNode:
         if not head:
             return head
         cur, nxt = head, head.next
