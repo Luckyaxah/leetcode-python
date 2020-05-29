@@ -89,8 +89,24 @@ class AbstractBinarySearchTree:
         while node.left != None:
             node = node.left
         return node
-        
-if __name__ == "__main__":
-    # 未测试代码
     
+    def getKthNode(self, k):
+        if self.size >= k:
+            return None
+        # 中序遍历
+        s = []
+        cur = self.root
+        count = 0
+        while (s or cur):
+            if cur:
+                s.append(cur)
+                cur = cur.left
+            else:
+                cur = s.pop()
+                count += 1
+                if count == k:
+                    return cur.value
+                cur = cur.right
+      
+if __name__ == "__main__":
     pass
