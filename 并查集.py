@@ -9,6 +9,9 @@ class UnionFindSet:
             self.fatherMap[element] = element
             self.sizeMap[element] = 1
 
+    def getSizeNum(self):
+        return len(self.sizeMap)
+
     def findHead(self, element):
         # 从element出发，找到不能再网上的头节点
         # 把网上找沿途的路径全都记录下来

@@ -5,6 +5,7 @@ class TreeNode(object):
         self.val = x
         self.left = None
         self.right = None
+
 def serializeByPre(root):
     if not root:
         return "#_"
@@ -12,13 +13,38 @@ def serializeByPre(root):
     res+= serializeByPre(root.left)
     res+= serializeByPre(root.right)
     return res
+
+
 def deserializeByPre(preStr):
+    # 注：这里传入的是先序字符串
     values = preStr.split('_')
+    return deserializeFromListByPre(values)
+
+def deserializeFromListByPre(nodeLists):
+    # 注：这里传入的是层序遍历字符串
     from queue import Queue
     q = Queue()
-    for i in values:
-        q.put(i)
+    for value in nodeLists:
+        q.put(value)
     return reconPreOrder(q)
+
+def deserializeByLevel(levelStr):
+    # 注：这里传入的是层序遍历字符串
+    values = levelStr.split('_')
+    return deserializeFromListByLevel(values)
+
+def deserializeFromListByLevel(nodeLists):
+    from queue import Queue
+    q = Queue()
+    if len(nodeLists) %2 == 0:
+        nodeLists.append('#')
+    for value in nodeLists:
+        if value != '#':
+            q.put(TreeNode(int(value)))
+        else:
+            q.put(None)
+    return reconLevelOrder(q)
+    
 
 def reconPreOrder(q):
     value = q.get()
@@ -29,6 +55,19 @@ def reconPreOrder(q):
     head.right = reconPreOrder(q)
     return head
 
+
+def reconLevelOrder(q):
+    from queue import Queue
+    q1 = Queue()
+    root = q.get()
+    q1.put(root)
+    while not q.empty():
+        node = q1.get()
+        node.left = q.get()
+        q1.put(node.left)
+        node.right = q.get()
+        q1.put(node.right)
+    return root
 
 class Codec:
     def serialize(self, root):
@@ -57,3 +96,17 @@ if __name__ == "__main__":
     head = codec.deserialize(a)
     printTree(head)
     print(codec.serialize(head))
+
+    b = ['1','2','#','3','4','#','#','#','#']
+    head1 = deserializeFromListByPre(b)
+    printTree(head1)
+
+    b2 = ['1','2','#','3']
+
+    head2 = deserializeFromListByLevel(b2)
+    printTree(head2)
+
+    b3 = '1_2_#_3'
+    head3 = deserializeByLevel(b3)
+    printTree(head3)
+

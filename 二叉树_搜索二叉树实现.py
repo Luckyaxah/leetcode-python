@@ -61,7 +61,7 @@ class AbstractBinarySearchTree:
                     nodeToReturn = self.transplant(nodeNeedToDelete, nodeNeedToDelete.left)
                 else:
                     # 找右树的最左节点（其实就是最小值节点）
-                    successorNode = self.getMinimun(nodeNeedToDelete.right)
+                    successorNode = self.getMinimum(nodeNeedToDelete.right)
                     # 要使用successorNode替换删除的节点
                     if successorNode.parent != nodeNeedToDelete: # 如果不是要删的节点的直接左孩子
                         self.transplant(successorNode, successorNode.right)
@@ -74,5 +74,23 @@ class AbstractBinarySearchTree:
                 self.size -= 1
             return nodeToReturn
         return None
-    def transplant(self, node1, node2):
-        pass
+    def transplant(self, nodeToReplace, newNode):
+        if nodeToReplace.parent == None:
+            self.node = newNode
+        elif nodeToReplace == nodeToReplace.parent.left: # 如果要替换的节点是他父节点的左孩子
+            nodeToReplace.parent.left = newNode
+        else:
+            nodeToReplace.parent.right = newNode
+        if newNode != None:
+            newNode.parent = nodeToReplace.parent
+        return newNode
+
+    def getMinimum(self, node):
+        while node.left != None:
+            node = node.left
+        return node
+        
+if __name__ == "__main__":
+    # 未测试代码
+    
+    pass
