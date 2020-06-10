@@ -75,6 +75,8 @@ class Codec:
         
         :type root: TreeNode
         :rtype: str
+
+        返回先序遍历字符串
         """
         return serializeByPre(root)
 
@@ -83,6 +85,8 @@ class Codec:
         
         :type data: str
         :rtype: TreeNode
+        
+        输入先序遍历字符串
         """
         return deserializeByPre(data)
 
