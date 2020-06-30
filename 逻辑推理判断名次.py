@@ -8,7 +8,6 @@ declares = [
     {2:'B', 5:'D'}
 ]
 ls = ['A','B','C','D','E']
-found = False
 while True:
     random.shuffle(ls)
     pass_count = 0
