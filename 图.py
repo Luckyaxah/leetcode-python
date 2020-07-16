@@ -18,6 +18,7 @@ class Edge:
 class Graph:
     # 点集和边集
     # 这里edges应当是一个有序表HashMap，暂时使用Set[Edge]
+    # 有序表所有操作O(logN)
     def __init__(self):
         self.nodes = {}
         self.edges = set()
